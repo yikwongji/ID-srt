@@ -19,27 +19,19 @@ def correct_srt_ids(input_file, output_file):
     with open(output_file, 'w', encoding='utf-8') as file:
         file.writelines(corrected_lines)
 
-# List of all the SRT file names
-srt_files = [
-    "lecture 1 CN.srt",
-    "lecture 2 CN.srt",
-    "lecture 3 CN.srt",
-    "lecture 4 CN.srt",
-    "lecture 5 CN.srt",
-    "lecture 6 CN.srt",
-    "lecture 7 CN.srt",
-    "lecture 14 CN.srt",
-    "lecture 13 CN.srt"
-]
+# Folder paths
+input_folder = "before"
+output_folder = "after"
 
-# Process each file
-output_directory = "corrected_srt"  # Directory to save the corrected files
-os.makedirs(output_directory, exist_ok=True)  # Create directory if it doesn't exist
+# Create the output folder if it doesn't exist
+os.makedirs(output_folder, exist_ok=True)
 
-for srt_file in srt_files:
-    input_file = srt_file
-    output_file = os.path.join(output_directory, srt_file)
-    correct_srt_ids(input_file, output_file)
-    print(f"Processed: {srt_file}")
+# Process all .srt files in the input folder
+for filename in os.listdir(input_folder):
+    if filename.endswith(".srt"):
+        input_file = os.path.join(input_folder, filename)
+        output_file = os.path.join(output_folder, filename)
+        correct_srt_ids(input_file, output_file)
+        print(f"Processed: {filename}")
 
 print("All files processed successfully!")
